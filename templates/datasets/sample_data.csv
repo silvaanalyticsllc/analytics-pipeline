@@ -1,0 +1,20 @@
+Date,Product,Category,Price,Quantity
+2026-01-01,Product A,Electronics,100,2
+2026-01-02,Product B,Clothing,50,3
+2026-01-03,Product C,Electronics,200,1
+2026-01-04,Product D,Home,80,4
+2026-01-05,Product E,Clothing,60,2
+2026-01-06,Product F,Electronics,120,1
+2026-01-07,Product G,Home,90,3
+2026-01-08,Product H,Clothing,65,2
+2026-01-09,Product I,Electronics,90,2
+2026-01-10,Product J,Clothing,40,4
+2026-01-11,Product K,Electronics,220,1
+2026-01-12,Product L,Home,30,5
+2026-01-13,Product M,Clothing,100,3
+2026-01-14,Product N,Electronics,70,2
+2026-01-15,Product O,Home,100,1
+2026-01-16,Product P,Electronics,250,2
+2026-01-17,Product Q,Home,40,4
+2026-01-18,Product R,Clothing,70,2
+2026-01-19,Product S,Electronics,50,2

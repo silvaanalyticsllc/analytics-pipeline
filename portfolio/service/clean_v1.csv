@@ -1,0 +1,20 @@
+date,service,client,category,revenue
+2026-01-01,Dashboard Setup,Horizon Retail,Electronics,450
+2026-01-02,KPI Reporting,Apex Fitness,Clothing,250
+2026-01-03,Data Cleaning,Northwind Supply,Electronics,300
+2026-01-04,KPI Reporting,Valley Shipments,Home,200
+2026-01-05,Dashboard Setup,Tractor Co,Clothing,400
+2026-01-06,KPI Reporting,Horizon Retail,Electronics,300
+2026-01-07,Data Cleaning,Southbay Plastic,Home,450
+2026-01-08,Dashboard Setup,Valley Shipments,Clothing,300
+2026-01-09,KPI Reporting,Eastside Healthcare,Electronics,200
+2026-01-10,Data Cleaning,Jamison Elementary,Clothing,350
+2026-01-11,Dashboard Setup,Tractor Co,Electronics,250
+2026-01-12,Dashboard Setup,Apex Fitness,Home,350
+2026-01-13,Data Cleaning,Westside Molding,Clothing,300
+2026-01-14,KPI Reporting,Northwind Supply,Electronics,450
+2026-01-15,Data Cleaning,Eastside Healthcare,Home,500
+2026-01-16,KPI Reporting,Southbay Plastic,Electronics,400
+2026-01-17,Dashboard Setup,Horizon Retail,Home,200
+2026-01-18,Data Cleaning,Tractor Co,Clothing,250
+2026-01-19,Dashboard Setup,Jamison Elementary,Electronics,350

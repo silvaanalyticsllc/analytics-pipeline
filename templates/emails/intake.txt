@@ -1,0 +1,13 @@
+Subject: Data Request
+
+Hi [Name],
+
+Please send your dataset (Excel/CSV).
+
+Include if possible:
+- Column descriptions
+- Date ranges
+- Metrics you want tracked
+
+Best,
+[You]

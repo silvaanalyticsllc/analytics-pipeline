@@ -1,0 +1,11 @@
+Subject: Dashboard Ready
+
+Hi [Name],
+
+Your dashboard is ready:
+[Link]
+
+Please review and share feedback.
+
+Best,
+[You]
