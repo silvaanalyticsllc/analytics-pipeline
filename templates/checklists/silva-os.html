@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Silva Analytics Execution System</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #111827;
+  padding: 16px;
+  border-bottom: 1px solid #1f2937;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* LAYOUT WRAPPER */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* =======================
+   CHECKLIST SYSTEM
+======================= */
+
+.section {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.section h2 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #334155;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item label {
+  cursor: pointer;
+  flex: 1;
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-top: 2px;
+}
+
+/* NOTES */
+.toggle-notes {
+  font-size: 12px;
+  color: #38bdf8;
+  cursor: pointer;
+  margin-left: 28px;
+  margin-bottom: 6px;
+}
+
+.notes {
+  margin-left: 28px;
+  display: none;
+  padding: 8px;
+  background: #0b1220;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* =======================
+   OUTREACH PIPELINE
+======================= */
+
+.pipeline-wrapper {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.board {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.column {
+  flex: 1;
+  min-width: 240px;
+  background: #0b1220;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.column h3 {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: grab;
+  font-size: 13px;
+}
+
+/* FULL WIDTH FIX */
+.board::-webkit-scrollbar {
+  height: 8px;
+}
+.board::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+
+/* =======================
+   MOBILE
+======================= */
+
+@media (max-width: 768px) {
+  .board {
+    flex-direction: column;
+  }
+
+  .column {
+    min-width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Silva Analytics — Execution System</h1>
+</header>
+
+<div class="container">
+
+<!-- ================= OUTREACH PIPELINE ================= -->
+<div class="pipeline-wrapper">
+  <div class="section">
+    <h2>📣 Outreach Pipeline</h2>
+
+    <div class="board">
+
+      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h3>Not Started</h3>
+
+        <div class="card" draggable="true" ondragstart="drag(event)" id="lead1">Get Lifted Gym</div>
+        <div class="card" draggable="true" ondragstart="drag(event)" id="lead2">Martin Tire Company</div>
+        <div class="card" draggable="true" ondragstart="drag(event)" id="lead3">Casa Ford</div>
+        <div class="card" draggable="true" ondragstart="drag(event)" id="lead4">Rio Grande Urology</div>
+        <div class="card" draggable="true" ondragstart="drag(event)" id="lead5">IMC Logistics</div>
+        <div class="card" draggable="true" ondragstart="drag(event)" id="lead6">Verde Logistics</div>
+        <div class="card" draggable="true" ondragstart="drag(event)" id="lead7">L & J Cafe</div>
+
+      </div>
+
+      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h3>Researching</h3>
+      </div>
+
+      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h3>Contacted</h3>
+      </div>
+
+      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h3>Responded</h3>
+      </div>
+
+      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h3>Closed</h3>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= CHECKLIST ================= -->
+<div id="app"></div>
+
+</div>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("checklist")) || {};
+
+const sections = [
+{
+title: "0. MASTER FILE SYSTEM SETUP",
+items: [
+{ text: "Create core project structure", note: "Clients, templates, internal, website_assets, portfolio, outreach folders" },
+{ text: "Standard client template built", note: "Raw → processed → outputs → assets → communication pipeline" }
+]
+},
+{
+title: "1. DELIVERY SYSTEM",
+items: [
+{ text: "Delivery system created", note: "Stored in templates/checklists" }
+]
+},
+{
+title: "2. PYTHON PIPELINE",
+items: [
+{ text: "Pipeline built (load, clean, transform, validate, export)", note: "Full ETL workflow implemented" },
+{ text: "Data validation + formatting improvements completed", note: "Null handling, revenue logic, normalization" }
+]
+},
+{
+title: "3. LOOKER STUDIO TEMPLATE",
+items: [
+{ text: "Retail dashboard completed", note: "KPIs, trends, category analysis" },
+{ text: "Service dashboard completed", note: "Client + revenue analytics + filters" }
+]
+},
+{
+title: "4. METRICS DOCUMENTATION",
+items: [
+{ text: "Metrics definition file created", note: "Revenue, AOV, order logic standardized" }
+]
+},
+{
+title: "5. EMAIL SYSTEM",
+items: [
+{ text: "Email templates completed", note: "Intake, outreach, follow-up, delivery" }
+]
+},
+{
+title: "6. WEBSITE BUILD",
+items: [
+{ text: "Domain + SSL configured", note: "Hosting secured" },
+{ text: "Core pages built", note: "Home, Services, Portfolio, About, Contact" },
+{ text: "Final optimization pending", note: "SEO, mobile, performance, branding" }
+]
+},
+{
+title: "7. INTAKE SYSTEM",
+items: [
+{ text: "Intake form created", note: "Contact + file upload configured" },
+{ text: "CTA routing complete", note: "All buttons lead to contact page" },
+{ text: "Embedding pending", note: "Needs website integration pass" }
+]
+},
+{
+title: "8. PORTFOLIO",
+items: [
+{ text: "Dashboards completed", note: "Retail + Service dashboards finished" },
+{ text: "Assets stored", note: "Screenshots saved" },
+{ text: "Summaries pending", note: "Project writeups not completed" }
+]
+},
+{
+title: "9. FULL PIPELINE TEST",
+items: [
+{ text: "Test workflow completed", note: "End-to-end simulation successful" },
+{ text: "Final validation pending", note: "Email + sharing tests still needed" }
+]
+},
+{
+title: "10. VERSION CONTROL",
+items: [
+{ text: "GitHub fully configured", note: "Repo synced and clean commits established" }
+]
+},
+{
+title: "11. OUTREACH",
+items: [
+{ text: "Lead structure created", note: "CSV tracking system defined" },
+{ text: "Initial leads added", note: "Multiple industries included" },
+{ text: "Outreach not started", note: "No emails sent yet" }
+]
+},
+{
+title: "12. INTERNAL RULES",
+items: [
+{ text: "System rules defined", note: "Version control + validation enforced" }
+]
+},
+{
+title: "13. FINAL PRIORITIES",
+items: [
+{ text: "Website completion", note: "Mobile + SEO + publish pending" },
+{ text: "Launch prep", note: "Final checks before outreach start" }
+]
+}
+];
+
+function getKey(section, item) {
+  return section + "::" + item;
+}
+
+function loadState() {
+  return JSON.parse(localStorage.getItem("checklist") || "{}");
+}
+
+function saveState(state) {
+  localStorage.setItem("checklist", JSON.stringify(state));
+}
+
+function toggleItem(key, checked) {
+  const state = loadState();
+  state[key] = checked;
+  saveState(state);
+}
+
+function render() {
+  const app = document.getElementById("app");
+  const state = loadState();
+
+  app.innerHTML = "";
+
+  sections.forEach(section => {
+    const wrap = document.createElement("div");
+    wrap.className = "section";
+
+    const title = document.createElement("h2");
+    title.textContent = section.title;
+    wrap.appendChild(title);
+
+    section.items.forEach(item => {
+      const key = getKey(section.title, item.text);
+
+      const row = document.createElement("div");
+      row.className = "item";
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!state[key];
+      cb.onchange = () => toggleItem(key, cb.checked);
+
+      const label = document.createElement("label");
+      label.textContent = item.text;
+
+      const noteBtn = document.createElement("div");
+      noteBtn.className = "toggle-notes";
+      noteBtn.textContent = "notes";
+
+      const note = document.createElement("div");
+      note.className = "notes";
+      note.textContent = item.note;
+
+      noteBtn.onclick = () => {
+        note.style.display = note.style.display === "block" ? "none" : "block";
+      };
+
+      row.appendChild(cb);
+      row.appendChild(label);
+
+      wrap.appendChild(row);
+      wrap.appendChild(noteBtn);
+      wrap.appendChild(note);
+    });
+
+    app.appendChild(wrap);
+  });
+}
+
+function allowDrop(ev){ ev.preventDefault(); }
+
+function drag(ev){
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev){
+  ev.preventDefault();
+  const id = ev.dataTransfer.getData("text");
+  ev.target.closest(".column").appendChild(document.getElementById(id));
+}
+
+render();
+
+</script>
+
+</body>
+</html>
