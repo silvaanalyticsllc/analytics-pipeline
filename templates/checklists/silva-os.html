@@ -3,396 +3,804 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>Silva Analytics Execution System</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
+
+*{
+    box-sizing:border-box;
 }
 
-/* HEADER */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: #111827;
-  padding: 16px;
-  border-bottom: 1px solid #1f2937;
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:#e2e8f0;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 18px;
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#111827;
+    padding:18px;
+    border-bottom:1px solid #1e293b;
 }
 
-/* LAYOUT WRAPPER */
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
+header h1{
+    margin:0;
+    font-size:22px;
 }
 
-/* =======================
-   CHECKLIST SYSTEM
-======================= */
-
-.section {
-  background: #1e293b;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 16px;
+.progress-wrap{
+    margin-top:12px;
+    background:#1e293b;
+    height:12px;
+    border-radius:999px;
+    overflow:hidden;
 }
 
-.section h2 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#22c55e;
+    transition:width .25s ease;
 }
 
-.item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid #334155;
+.controls{
+    display:flex;
+    gap:10px;
+    margin-top:14px;
+    flex-wrap:wrap;
 }
 
-.item:last-child {
-  border-bottom: none;
+button{
+    background:#2563eb;
+    border:none;
+    color:white;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.item label {
-  cursor: pointer;
-  flex: 1;
-  font-size: 14px;
+button:hover{
+    background:#1d4ed8;
 }
 
-input[type="checkbox"] {
-  transform: scale(1.2);
-  margin-top: 2px;
+textarea{
+    width:100%;
+    min-height:120px;
+    margin-top:14px;
+    border-radius:8px;
+    border:none;
+    padding:12px;
+    background:#0b1220;
+    color:#e2e8f0;
 }
 
-/* NOTES */
-.toggle-notes {
-  font-size: 12px;
-  color: #38bdf8;
-  cursor: pointer;
-  margin-left: 28px;
-  margin-bottom: 6px;
+.container{
+    width:100%;
+    max-width:1600px;
+    margin:auto;
+    padding:20px;
 }
 
-.notes {
-  margin-left: 28px;
-  display: none;
-  padding: 8px;
-  background: #0b1220;
-  border-radius: 6px;
-  font-size: 13px;
+/* OUTREACH BOARD */
+
+.board-section{
+    width:100%;
+    margin-bottom:30px;
 }
 
-/* =======================
-   OUTREACH PIPELINE
-======================= */
-
-.pipeline-wrapper {
-  width: 100%;
-  margin-bottom: 24px;
+.board-title{
+    margin-bottom:16px;
+    font-size:24px;
+    font-weight:bold;
 }
 
-.board {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  width: 100%;
+.board{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(5,minmax(260px,1fr));
+    gap:16px;
+    align-items:start;
 }
 
-.column {
-  flex: 1;
-  min-width: 240px;
-  background: #0b1220;
-  border-radius: 10px;
-  padding: 10px;
+.column{
+    background:#111827;
+    border-radius:12px;
+    padding:14px;
+    min-height:500px;
+    border:1px solid #1e293b;
 }
 
-.column h3 {
-  margin-top: 0;
-  font-size: 14px;
+.column h3{
+    margin-top:0;
+    margin-bottom:14px;
+    font-size:18px;
 }
 
-.card {
-  background: #1e293b;
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 6px;
-  cursor: grab;
-  font-size: 13px;
+.card{
+    background:#1e293b;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    cursor:grab;
+    transition:.15s ease;
+    border:1px solid transparent;
 }
 
-/* FULL WIDTH FIX */
-.board::-webkit-scrollbar {
-  height: 8px;
-}
-.board::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 10px;
+.card:hover{
+    border-color:#38bdf8;
+    transform:translateY(-1px);
 }
 
-/* =======================
-   MOBILE
-======================= */
-
-@media (max-width: 768px) {
-  .board {
-    flex-direction: column;
-  }
-
-  .column {
-    min-width: 100%;
-  }
+.company{
+    font-weight:bold;
+    margin-bottom:6px;
 }
+
+.meta{
+    font-size:13px;
+    color:#94a3b8;
+    line-height:1.5;
+}
+
+/* CHECKLIST */
+
+.section{
+    width:100%;
+    background:#111827;
+    border-radius:12px;
+    margin-bottom:18px;
+    overflow:hidden;
+    border:1px solid #1e293b;
+}
+
+.section-header{
+    padding:16px 18px;
+    background:#172033;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.items{
+    padding:14px 18px 18px 18px;
+}
+
+.item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:10px 0;
+    border-bottom:1px solid #1e293b;
+}
+
+.item:last-child{
+    border-bottom:none;
+}
+
+.item input{
+    margin-top:4px;
+    transform:scale(1.2);
+}
+
+.item label{
+    flex:1;
+    line-height:1.5;
+    cursor:pointer;
+}
+
+.note-toggle{
+    margin-left:34px;
+    margin-top:-4px;
+    margin-bottom:10px;
+    color:#38bdf8;
+    font-size:13px;
+    cursor:pointer;
+}
+
+.note{
+    display:none;
+    margin-left:34px;
+    margin-bottom:12px;
+    background:#0b1220;
+    border-radius:8px;
+    padding:12px;
+    color:#cbd5e1;
+    line-height:1.5;
+}
+
+.note.open{
+    display:block;
+}
+
+/* MOBILE */
+
+@media (max-width:1400px){
+    .board{
+        grid-template-columns:repeat(3,minmax(260px,1fr));
+    }
+}
+
+@media (max-width:1000px){
+    .board{
+        grid-template-columns:repeat(2,minmax(260px,1fr));
+    }
+}
+
+@media (max-width:700px){
+
+    header h1{
+        font-size:18px;
+    }
+
+    .container{
+        padding:12px;
+    }
+
+    .board{
+        grid-template-columns:1fr;
+    }
+
+    .column{
+        min-height:unset;
+    }
+
+    .item{
+        align-items:flex-start;
+    }
+
+    .item label{
+        font-size:15px;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Silva Analytics — Execution System</h1>
+
+<h1>Silva Analytics — Execution System</h1>
+
+<div class="progress-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="controls">
+    <button onclick="exportData()">Export Progress</button>
+    <button onclick="importData()">Import Progress</button>
+    <button onclick="resetData()">Reset</button>
+</div>
+
+<textarea id="dataBox" placeholder="Paste exported progress here..."></textarea>
+
 </header>
 
 <div class="container">
 
-<!-- ================= OUTREACH PIPELINE ================= -->
-<div class="pipeline-wrapper">
-  <div class="section">
-    <h2>📣 Outreach Pipeline</h2>
+<!-- OUTREACH BOARD -->
 
-    <div class="board">
+<div class="board-section">
 
-      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <h3>Not Started</h3>
+<div class="board-title">📣 Outreach Pipeline</div>
 
-        <div class="card" draggable="true" ondragstart="drag(event)" id="lead1">Get Lifted Gym</div>
-        <div class="card" draggable="true" ondragstart="drag(event)" id="lead2">Martin Tire Company</div>
-        <div class="card" draggable="true" ondragstart="drag(event)" id="lead3">Casa Ford</div>
-        <div class="card" draggable="true" ondragstart="drag(event)" id="lead4">Rio Grande Urology</div>
-        <div class="card" draggable="true" ondragstart="drag(event)" id="lead5">IMC Logistics</div>
-        <div class="card" draggable="true" ondragstart="drag(event)" id="lead6">Verde Logistics</div>
-        <div class="card" draggable="true" ondragstart="drag(event)" id="lead7">L & J Cafe</div>
+<div class="board">
 
-      </div>
+<div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+<h3>Not Started</h3>
 
-      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <h3>Researching</h3>
-      </div>
-
-      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <h3>Contacted</h3>
-      </div>
-
-      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <h3>Responded</h3>
-      </div>
-
-      <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <h3>Closed</h3>
-      </div>
-
-    </div>
-  </div>
+<div class="card" draggable="true" ondragstart="drag(event)" id="g1">
+<div class="company">Get Lifted Gym</div>
+<div class="meta">Fitness<br>Email Found<br>Need personalization</div>
 </div>
 
-<!-- ================= CHECKLIST ================= -->
+<div class="card" draggable="true" ondragstart="drag(event)" id="g2">
+<div class="company">Elev8 Gym</div>
+<div class="meta">Fitness<br>Researching decision maker</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g3">
+<div class="company">Martin Tire Company</div>
+<div class="meta">Automotive<br>Potential KPI reporting need</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g4">
+<div class="company">Casa Ford</div>
+<div class="meta">Automotive<br>Need outreach angle</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g5">
+<div class="company">Milken Construction</div>
+<div class="meta">Construction<br>Need contact research</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g6">
+<div class="company">Larsen Manufacturing</div>
+<div class="meta">Manufacturing<br>Need operations angle</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g7">
+<div class="company">Keats Southwest Manufacturing</div>
+<div class="meta">Manufacturing<br>Potential analytics need</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g8">
+<div class="company">Plastic Molding Technology</div>
+<div class="meta">Industrial<br>Need contact info</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g9">
+<div class="company">Jordan Foster Construction</div>
+<div class="meta">Construction<br>Research phase</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g10">
+<div class="company">Verde Logistics</div>
+<div class="meta">Logistics<br>Strong dashboard potential</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g11">
+<div class="company">IMC Logistics</div>
+<div class="meta">Logistics<br>Need outreach notes</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g12">
+<div class="company">Rio Grande Urology</div>
+<div class="meta">Medical<br>Need decision maker</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g13">
+<div class="company">Integrity Asset Management</div>
+<div class="meta">Finance<br>Need outreach positioning</div>
+</div>
+
+<div class="card" draggable="true" ondragstart="drag(event)" id="g14">
+<div class="company">L &amp; J Cafe</div>
+<div class="meta">Restaurant<br>Potential sales dashboard need</div>
+</div>
+
+</div>
+
+<div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+<h3>Researching</h3>
+</div>
+
+<div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+<h3>Contacted</h3>
+</div>
+
+<div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+<h3>Responded</h3>
+</div>
+
+<div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+<h3>Closed</h3>
+</div>
+
+</div>
+</div>
+
+<!-- CHECKLIST -->
+
 <div id="app"></div>
 
 </div>
 
 <script>
 
-let data = JSON.parse(localStorage.getItem("checklist")) || {};
-
 const sections = [
+
 {
-title: "0. MASTER FILE SYSTEM SETUP",
-items: [
-{ text: "Create core project structure", note: "Clients, templates, internal, website_assets, portfolio, outreach folders" },
-{ text: "Standard client template built", note: "Raw → processed → outputs → assets → communication pipeline" }
-]
+title:"0. MASTER FILE SYSTEM SETUP",
+items:[
+{
+text:"Create /SilvaAnalytics folder + core directories",
+note:"Includes clients, templates, internal, website_assets, portfolio, outreach."
 },
 {
-title: "1. DELIVERY SYSTEM",
-items: [
-{ text: "Delivery system created", note: "Stored in templates/checklists" }
+text:"Create reusable client folder structure",
+note:"Standardized raw → processed → outputs → dashboard assets → communication structure."
+}
 ]
 },
+
 {
-title: "2. PYTHON PIPELINE",
-items: [
-{ text: "Pipeline built (load, clean, transform, validate, export)", note: "Full ETL workflow implemented" },
-{ text: "Data validation + formatting improvements completed", note: "Null handling, revenue logic, normalization" }
+title:"1. DELIVERY SYSTEM",
+items:[
+{
+text:"Delivery checklist system created",
+note:"Templates saved in templates/checklists."
+}
 ]
 },
+
 {
-title: "3. LOOKER STUDIO TEMPLATE",
-items: [
-{ text: "Retail dashboard completed", note: "KPIs, trends, category analysis" },
-{ text: "Service dashboard completed", note: "Client + revenue analytics + filters" }
-]
+title:"2. PYTHON PIPELINE",
+items:[
+{
+text:"Pipeline built (load, clean, transform, validate, export)",
+note:"Core reusable analytics pipeline completed."
 },
 {
-title: "4. METRICS DOCUMENTATION",
-items: [
-{ text: "Metrics definition file created", note: "Revenue, AOV, order logic standardized" }
+text:"Formatting + validation improvements completed",
+note:"Date handling, null handling, revenue calculations, formatting standardization."
+}
 ]
 },
+
 {
-title: "5. EMAIL SYSTEM",
-items: [
-{ text: "Email templates completed", note: "Intake, outreach, follow-up, delivery" }
-]
+title:"3. LOOKER STUDIO TEMPLATE",
+items:[
+{
+text:"Retail dashboard completed",
+note:"KPIs, trends, category analysis, top products, filters."
 },
 {
-title: "6. WEBSITE BUILD",
-items: [
-{ text: "Domain + SSL configured", note: "Hosting secured" },
-{ text: "Core pages built", note: "Home, Services, Portfolio, About, Contact" },
-{ text: "Final optimization pending", note: "SEO, mobile, performance, branding" }
+text:"Service dashboard completed",
+note:"Revenue analytics, client reporting, KPIs, filters."
+}
 ]
 },
+
 {
-title: "7. INTAKE SYSTEM",
-items: [
-{ text: "Intake form created", note: "Contact + file upload configured" },
-{ text: "CTA routing complete", note: "All buttons lead to contact page" },
-{ text: "Embedding pending", note: "Needs website integration pass" }
+title:"4. METRICS DOCUMENTATION",
+items:[
+{
+text:"Metrics definition documentation created",
+note:"Metrics logic standardized and documented."
+}
 ]
 },
+
 {
-title: "8. PORTFOLIO",
-items: [
-{ text: "Dashboards completed", note: "Retail + Service dashboards finished" },
-{ text: "Assets stored", note: "Screenshots saved" },
-{ text: "Summaries pending", note: "Project writeups not completed" }
+title:"5. EMAIL SYSTEM",
+items:[
+{
+text:"All core email templates created",
+note:"Intake, outreach, follow-up, delivery templates."
+}
 ]
 },
+
 {
-title: "9. FULL PIPELINE TEST",
-items: [
-{ text: "Test workflow completed", note: "End-to-end simulation successful" },
-{ text: "Final validation pending", note: "Email + sharing tests still needed" }
-]
+title:"6. WEBSITE BUILD",
+items:[
+{
+text:"Domain + SSL configured",
+note:"Website infrastructure active."
 },
 {
-title: "10. VERSION CONTROL",
-items: [
-{ text: "GitHub fully configured", note: "Repo synced and clean commits established" }
-]
+text:"Core pages built",
+note:"Home, Services, Portfolio, About, Contact."
 },
 {
-title: "11. OUTREACH",
-items: [
-{ text: "Lead structure created", note: "CSV tracking system defined" },
-{ text: "Initial leads added", note: "Multiple industries included" },
-{ text: "Outreach not started", note: "No emails sent yet" }
-]
+text:"Upload logo + favicon",
+note:"Branding still pending."
 },
 {
-title: "12. INTERNAL RULES",
-items: [
-{ text: "System rules defined", note: "Version control + validation enforced" }
-]
+text:"Add social share preview image",
+note:"Used for link previews across platforms."
 },
 {
-title: "13. FINAL PRIORITIES",
-items: [
-{ text: "Website completion", note: "Mobile + SEO + publish pending" },
-{ text: "Launch prep", note: "Final checks before outreach start" }
+text:"Final mobile responsiveness pass",
+note:"Verify layout, scaling, spacing, buttons."
+},
+{
+text:"SEO + performance testing",
+note:"Verify metadata, speed, links, responsiveness."
+},
+{
+text:"Publish verification pass",
+note:"Final production review before outreach."
+}
+]
+},
+
+{
+title:"7. INTAKE SYSTEM",
+items:[
+{
+text:"Intake/contact form configured",
+note:"Lead intake structure completed."
+},
+{
+text:"CTA routing connected",
+note:"Buttons route users to contact flow."
+},
+{
+text:"Verify live contact form submissions",
+note:"Test end-to-end submissions + email notifications."
+}
+]
+},
+
+{
+title:"8. PORTFOLIO BUILD",
+items:[
+{
+text:"Retail dashboard portfolio project completed",
+note:"Trend analysis + KPI reporting."
+},
+{
+text:"Service dashboard portfolio project completed",
+note:"Client analytics + operational visibility."
+},
+{
+text:"Portfolio screenshots captured",
+note:"Images saved for website use."
+},
+{
+text:"Write concise portfolio summaries",
+note:"2–3 sentence operational overview per dashboard."
+}
+]
+},
+
+{
+title:"9. FULL PIPELINE TEST",
+items:[
+{
+text:"End-to-end workflow validated",
+note:"Raw dataset → cleaned output → Looker dashboard."
+},
+{
+text:"Run final delivery simulation",
+note:"Verify email, permissions, access, filters, timing."
+},
+{
+text:"Open dashboard externally as client",
+note:"Use incognito/private browser."
+}
+]
+},
+
+{
+title:"10. VERSION CONTROL",
+items:[
+{
+text:"GitHub repository fully configured",
+note:"Repo synchronized and operational."
+},
+{
+text:"Versioning workflow established",
+note:"clean_v1 → clean_v2 → final.csv conventions."
+}
+]
+},
+
+{
+title:"11. FINANCIAL + BUSINESS OPERATIONS",
+items:[
+{
+text:"Business checking operational",
+note:"Banking infrastructure active."
+},
+{
+text:"Business credit card active",
+note:"Business credit profile started."
+},
+{
+text:"Marcus HYSA linked + verified",
+note:"External account connected successfully."
+},
+{
+text:"Stripe payment system configured",
+note:"Verify checkout, invoices, payouts, receipts."
+},
+{
+text:"Business expense tracking active",
+note:"Track subscriptions, hosting, domains, software."
+}
+]
+},
+
+{
+title:"12. OUTREACH PREP",
+items:[
+{
+text:"Lead database structure created",
+note:"Tracks contacts, notes, statuses, follow-ups."
+},
+{
+text:"Research contact emails + decision makers",
+note:"Gather outreach-ready lead data."
+},
+{
+text:"Add personalization notes",
+note:"Operational pain points, analytics opportunities."
+},
+{
+text:"Send first outreach batch",
+note:"Initial 5–10 validation messages."
+},
+{
+text:"Track replies + follow-ups",
+note:"Update outreach board + CSV continuously."
+}
+]
+},
+
+{
+title:"13. INTERNAL RULES",
+items:[
+{
+text:"Data integrity rules established",
+note:"Never overwrite raw data."
+},
+{
+text:"Validation workflow enforced",
+note:"Always validate outputs before delivery."
+}
+]
+},
+
+{
+title:"14. FINAL LAUNCH CHECK",
+items:[
+{
+text:"Website fully finalized",
+note:"Production-ready appearance and functionality."
+},
+{
+text:"Workflow fully tested",
+note:"Delivery simulation completed successfully."
+},
+{
+text:"Outreach system active",
+note:"Lead generation + messaging operational."
+}
 ]
 }
+
 ];
 
-function getKey(section, item) {
-  return section + "::" + item;
+let state = JSON.parse(localStorage.getItem("silvaChecklistState") || "{}");
+
+function saveState(){
+    localStorage.setItem("silvaChecklistState", JSON.stringify(state));
 }
 
-function loadState() {
-  return JSON.parse(localStorage.getItem("checklist") || "{}");
+function toggleItem(id){
+    if(!state[id]) state[id] = {};
+    state[id].checked = !state[id].checked;
+    saveState();
+    render();
 }
 
-function saveState(state) {
-  localStorage.setItem("checklist", JSON.stringify(state));
+function toggleNote(id){
+    if(!state[id]) state[id] = {};
+    state[id].noteOpen = !state[id].noteOpen;
+    saveState();
+    render();
 }
 
-function toggleItem(key, checked) {
-  const state = loadState();
-  state[key] = checked;
-  saveState(state);
-}
+function render(){
 
-function render() {
-  const app = document.getElementById("app");
-  const state = loadState();
+    let html = "";
 
-  app.innerHTML = "";
+    let total = 0;
+    let completed = 0;
 
-  sections.forEach(section => {
-    const wrap = document.createElement("div");
-    wrap.className = "section";
+    sections.forEach((section,sIndex)=>{
 
-    const title = document.createElement("h2");
-    title.textContent = section.title;
-    wrap.appendChild(title);
+        html += `
+        <div class="section">
+        <div class="section-header">${section.title}</div>
+        <div class="items">
+        `;
 
-    section.items.forEach(item => {
-      const key = getKey(section.title, item.text);
+        section.items.forEach((item,iIndex)=>{
 
-      const row = document.createElement("div");
-      row.className = "item";
+            const id = `${sIndex}-${iIndex}`;
 
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.checked = !!state[key];
-      cb.onchange = () => toggleItem(key, cb.checked);
+            const checked = state[id]?.checked || false;
+            const noteOpen = state[id]?.noteOpen || false;
 
-      const label = document.createElement("label");
-      label.textContent = item.text;
+            total++;
 
-      const noteBtn = document.createElement("div");
-      noteBtn.className = "toggle-notes";
-      noteBtn.textContent = "notes";
+            if(checked) completed++;
 
-      const note = document.createElement("div");
-      note.className = "notes";
-      note.textContent = item.note;
+            html += `
+            <div class="item">
+                <input
+                    type="checkbox"
+                    ${checked ? "checked" : ""}
+                    onchange="toggleItem('${id}')"
+                >
 
-      noteBtn.onclick = () => {
-        note.style.display = note.style.display === "block" ? "none" : "block";
-      };
+                <label>${item.text}</label>
+            </div>
 
-      row.appendChild(cb);
-      row.appendChild(label);
+            <div class="note-toggle" onclick="toggleNote('${id}')">
+                details
+            </div>
 
-      wrap.appendChild(row);
-      wrap.appendChild(noteBtn);
-      wrap.appendChild(note);
+            <div class="note ${noteOpen ? "open" : ""}">
+                ${item.note}
+            </div>
+            `;
+        });
+
+        html += `</div></div>`;
     });
 
-    app.appendChild(wrap);
-  });
+    document.getElementById("app").innerHTML = html;
+
+    const percent = total ? (completed/total)*100 : 0;
+
+    document.getElementById("progressBar").style.width = percent + "%";
 }
 
-function allowDrop(ev){ ev.preventDefault(); }
+function exportData(){
+    document.getElementById("dataBox").value =
+        JSON.stringify(state);
+}
+
+function importData(){
+
+    try{
+        const imported =
+            JSON.parse(document.getElementById("dataBox").value);
+
+        state = imported;
+
+        saveState();
+
+        render();
+
+        alert("Import successful.");
+
+    }catch(err){
+        alert("Invalid import data.");
+    }
+}
+
+function resetData(){
+
+    if(confirm("Reset all checklist progress?")){
+
+        localStorage.removeItem("silvaChecklistState");
+
+        state = {};
+
+        render();
+    }
+}
+
+/* DRAG DROP */
+
+function allowDrop(ev){
+    ev.preventDefault();
+}
 
 function drag(ev){
-  ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData(
+        "text/plain",
+        ev.target.id
+    );
 }
 
 function drop(ev){
-  ev.preventDefault();
-  const id = ev.dataTransfer.getData("text");
-  ev.target.closest(".column").appendChild(document.getElementById(id));
+
+    ev.preventDefault();
+
+    const cardId =
+        ev.dataTransfer.getData("text/plain");
+
+    const column =
+        ev.currentTarget;
+
+    const card =
+        document.getElementById(cardId);
+
+    if(column && card){
+        column.appendChild(card);
+    }
 }
 
 render();
